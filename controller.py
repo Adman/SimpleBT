@@ -17,6 +17,7 @@ class Arrows(wx.Frame):
         self.panel = wx.Panel(self, -1, pos=(0, 0), size=(204, 204))
 
         self.Bind(wx.EVT_CHAR, self.appMove)
+        self.panel.Bind(wx.EVT_CHAR, self.appMove)
         self.SetFocus()
 
         
@@ -69,19 +70,6 @@ class Arrows(wx.Frame):
         self.Centre()
         self.Show(True)
 
-
-    def appMove(self, event):
-        self.keycode = event.GetKeyCode()
-        if self.keycode == 119 or self.keycode == 87:
-            self.SetTitle("w")
-        elif self.keycode == 115 or self.keycode == 83:
-            self.SetTitle("s")
-        elif self.keycode == 97 or self.keycode == 65:
-            self.SetTitle("a")
-        elif self.keycode == 100 or self.keycode == 68:
-            self.SetTitle("d")
-        
-
     def btnupleftClick(self,event):
         self.SetTitle("UPLEFT")
 
@@ -112,6 +100,16 @@ class Arrows(wx.Frame):
     def OnQuit(self, event):
         self.Close()
 
+    def appMove(self, event):
+        self.keycode = event.GetKeyCode()
+        if self.keycode == 119 or self.keycode == 87:
+            self.btnupClick(self)
+        elif self.keycode == 115 or self.keycode == 83:
+            self.btndownClick(self)
+        elif self.keycode == 97 or self.keycode == 65:
+            self.btnleftClick(self)
+        elif self.keycode == 100 or self.keycode == 68:
+            self.btnrightClick(self)
 
  
 if __name__ == "__main__":
