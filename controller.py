@@ -103,13 +103,13 @@ class Arrows(wx.Frame):
     def appMove(self, event):
         self.keycode = event.GetKeyCode()
         if self.keycode == 119 or self.keycode == 87:
-            self.btnupClick(self)
+            self.btnupClick(None)
         elif self.keycode == 115 or self.keycode == 83:
-            self.btndownClick(self)
+            self.btndownClick(None)
         elif self.keycode == 97 or self.keycode == 65:
-            self.btnleftClick(self)
+            self.btnleftClick(None)
         elif self.keycode == 100 or self.keycode == 68:
-            self.btnrightClick(self)
+            self.btnrightClick(None)
 
  
 if __name__ == "__main__":
