@@ -1,6 +1,5 @@
 import wx
 
-
 upleft = "icons/upleft.png"
 left = "icons/left.png"
 downleft = "icons/downleft.png"
@@ -11,14 +10,30 @@ upright = "icons/upright.png"
 right = "icons/right.png"
 downright = "icons/downright.png"
 
+
+upID = 4
+downID = 6
+leftID = 2
+rightID = 8
+
 class Arrows(wx.Frame):
     def __init__(self, parent, id, title):
         wx.Frame.__init__(self, parent, id, title, size=(220, 430), style=wx.CLOSE_BOX | wx.CAPTION | wx.SYSTEM_MENU)
         self.panel = wx.Panel(self, -1, pos=(0, 0), size=(204, 204))
+        
+        # self.Bind(wx.EVT_CHAR, self.appMove)
+        # self.SetFocus()
 
-        self.Bind(wx.EVT_CHAR, self.appMove)
-        self.panel.Bind(wx.EVT_CHAR, self.appMove)
-        self.SetFocus()
+        acceltbl = wx.AcceleratorTable( [
+                (wx.ACCEL_NORMAL, ord('w'), upID),
+                (wx.ACCEL_NORMAL, ord('s'), downID),
+                (wx.ACCEL_NORMAL, ord('a'), leftID),
+                (wx.ACCEL_NORMAL, ord('d'), rightID)
+            ])
+        self.SetAcceleratorTable(acceltbl)
+
+        
+        
 
         
         imageUPLEFT = wx.Image(upleft, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
@@ -27,7 +42,7 @@ class Arrows(wx.Frame):
         self.btnupleft.Bind(wx.EVT_BUTTON, self.btnupleftClick)
 
         imageLEFT = wx.Image(left, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        self.btnleft = wx.BitmapButton(self.panel, id = 2, bitmap=imageLEFT,
+        self.btnleft = wx.BitmapButton(self.panel, id = leftID, bitmap=imageLEFT,
             pos=(5, 69), size = (imageLEFT.GetWidth()+5, imageLEFT.GetHeight()+5))
         self.btnleft.Bind(wx.EVT_BUTTON, self.btnleftClick)
         
@@ -37,7 +52,7 @@ class Arrows(wx.Frame):
         self.btndownleft.Bind(wx.EVT_BUTTON, self.btndownleftClick)
         
         imageUP = wx.Image(up, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        self.btnup = wx.BitmapButton(self.panel, id = 4, bitmap=imageUP,
+        self.btnup = wx.BitmapButton(self.panel, id = upID, bitmap=imageUP,
             pos=(69, 5), size = (imageUP.GetWidth()+5, imageUP.GetHeight()+5))
         self.btnup.Bind(wx.EVT_BUTTON, self.btnupClick)
         
@@ -47,7 +62,7 @@ class Arrows(wx.Frame):
         self.btncentre.Bind(wx.EVT_BUTTON, self.btncentreClick)
         
         imageDOWN = wx.Image(down, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        self.btndown = wx.BitmapButton(self.panel, id = 6, bitmap=imageDOWN,
+        self.btndown = wx.BitmapButton(self.panel, id = downID, bitmap=imageDOWN,
             pos=(69, 133), size = (imageDOWN.GetWidth()+5, imageDOWN.GetHeight()+5))
         self.btndown.Bind(wx.EVT_BUTTON, self.btndownClick)
         
@@ -57,7 +72,7 @@ class Arrows(wx.Frame):
         self.btnupright.Bind(wx.EVT_BUTTON, self.btnuprightClick)
         
         imageRIGHT = wx.Image(right, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        self.btnright = wx.BitmapButton(self.panel, id = 8, bitmap=imageRIGHT,
+        self.btnright = wx.BitmapButton(self.panel, id = rightID, bitmap=imageRIGHT,
             pos=(133, 69), size = (imageRIGHT.GetWidth()+5, imageRIGHT.GetHeight()+5))
         self.btnright.Bind(wx.EVT_BUTTON, self.btnrightClick)
         
@@ -99,17 +114,6 @@ class Arrows(wx.Frame):
 
     def OnQuit(self, event):
         self.Close()
-
-    def appMove(self, event):
-        self.keycode = event.GetKeyCode()
-        if self.keycode == 119 or self.keycode == 87:
-            self.btnupClick(None)
-        elif self.keycode == 115 or self.keycode == 83:
-            self.btndownClick(None)
-        elif self.keycode == 97 or self.keycode == 65:
-            self.btnleftClick(None)
-        elif self.keycode == 100 or self.keycode == 68:
-            self.btnrightClick(None)
 
  
 if __name__ == "__main__":
