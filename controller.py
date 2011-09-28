@@ -67,50 +67,50 @@ class Arrows(wx.Frame):
 
 
 
-        #imageUPLEFT = wx.Image(upleft, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        #self.btnupleft = wx.BitmapButton(self.panel, id = 1, bitmap=imageUPLEFT,
-         #   pos=(5, 5), size = (imageUPLEFT.GetWidth()+5, imageUPLEFT.GetHeight()+5))
-        #self.btnupleft.Bind(wx.EVT_BUTTON, self.btnupleftClick)
+        imageUPLEFT = wx.Image(upleft, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
+        self.btnupleft = wx.BitmapButton(self.panel, id = 1, bitmap=imageUPLEFT,
+            pos=(5, 5), size = (imageUPLEFT.GetWidth()+5, imageUPLEFT.GetHeight()+5))
+        self.btnupleft.Bind(wx.EVT_BUTTON, self.btnupleftClick)
 
-        #imageLEFT = wx.Image(left, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        #self.btnleft = wx.BitmapButton(self.panel, id = leftID, bitmap=imageLEFT,
-            #pos=(5, 69), size = (imageLEFT.GetWidth()+5, imageLEFT.GetHeight()+5))
-        #self.btnleft.Bind(wx.EVT_BUTTON, self.btnleftClick)
+        imageLEFT = wx.Image(left, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
+        self.btnleft = wx.BitmapButton(self.panel, id = leftID, bitmap=imageLEFT,
+            pos=(5, 69), size = (imageLEFT.GetWidth()+5, imageLEFT.GetHeight()+5))
+        self.btnleft.Bind(wx.EVT_BUTTON, self.btnleftClick)
         
-        #imageDOWNLEFT = wx.Image(downleft, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        #self.btndownleft = wx.BitmapButton(self.panel, id = 3, bitmap=imageDOWNLEFT,
-            #pos=(5, 133), size = (imageDOWNLEFT.GetWidth()+5, imageDOWNLEFT.GetHeight()+5))
-        #self.btndownleft.Bind(wx.EVT_BUTTON, self.btndownleftClick)
+        imageDOWNLEFT = wx.Image(downleft, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
+        self.btndownleft = wx.BitmapButton(self.panel, id = 3, bitmap=imageDOWNLEFT,
+            pos=(5, 133), size = (imageDOWNLEFT.GetWidth()+5, imageDOWNLEFT.GetHeight()+5))
+        self.btndownleft.Bind(wx.EVT_BUTTON, self.btndownleftClick)
         
-        #imageUP = wx.Image(up, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        #self.btnup = wx.BitmapButton(self.panel, id = upID, bitmap=imageUP,
-            #pos=(69, 5), size = (imageUP.GetWidth()+5, imageUP.GetHeight()+5))
-        #self.btnup.Bind(wx.EVT_BUTTON, self.btnupClick)
+        imageUP = wx.Image(up, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
+        self.btnup = wx.BitmapButton(self.panel, id = upID, bitmap=imageUP,
+            pos=(69, 5), size = (imageUP.GetWidth()+5, imageUP.GetHeight()+5))
+        self.btnup.Bind(wx.EVT_BUTTON, self.btnupClick)
         
-        #imageCENTRE = wx.Image(centre, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        #self.btncentre = wx.BitmapButton(self.panel, id = 5, bitmap=imageCENTRE,
-            #pos=(69, 69), size = (imageCENTRE.GetWidth()+5, imageCENTRE.GetHeight()+5))
-        #self.btncentre.Bind(wx.EVT_BUTTON, self.btncentreClick)
+        imageCENTRE = wx.Image(centre, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
+        self.btncentre = wx.BitmapButton(self.panel, id = 5, bitmap=imageCENTRE,
+            pos=(69, 69), size = (imageCENTRE.GetWidth()+5, imageCENTRE.GetHeight()+5))
+        self.btncentre.Bind(wx.EVT_BUTTON, self.btncentreClick)
         
-        #imageDOWN = wx.Image(down, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        #self.btndown = wx.BitmapButton(self.panel, id = downID, bitmap=imageDOWN,
-            #pos=(69, 133), size = (imageDOWN.GetWidth()+5, imageDOWN.GetHeight()+5))
-        #self.btndown.Bind(wx.EVT_BUTTON, self.btndownClick)
+        imageDOWN = wx.Image(down, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
+        self.btndown = wx.BitmapButton(self.panel, id = downID, bitmap=imageDOWN,
+            pos=(69, 133), size = (imageDOWN.GetWidth()+5, imageDOWN.GetHeight()+5))
+        self.btndown.Bind(wx.EVT_BUTTON, self.btndownClick)
         
-        #imageUPRIGHT = wx.Image(upright, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        #self.btnupright = wx.BitmapButton(self.panel, id = 7, bitmap=imageUPRIGHT,
-            #pos=(133, 5), size = (imageUPRIGHT.GetWidth()+5, imageUPRIGHT.GetHeight()+5))
-        #self.btnupright.Bind(wx.EVT_BUTTON, self.btnuprightClick)
+        imageUPRIGHT = wx.Image(upright, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
+        self.btnupright = wx.BitmapButton(self.panel, id = 7, bitmap=imageUPRIGHT,
+            pos=(133, 5), size = (imageUPRIGHT.GetWidth()+5, imageUPRIGHT.GetHeight()+5))
+        self.btnupright.Bind(wx.EVT_BUTTON, self.btnuprightClick)
         
-        #imageRIGHT = wx.Image(right, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        #self.btnright = wx.BitmapButton(self.panel, id = rightID, bitmap=imageRIGHT,
-            #pos=(133, 69), size = (imageRIGHT.GetWidth()+5, imageRIGHT.GetHeight()+5))
-        #self.btnright.Bind(wx.EVT_BUTTON, self.btnrightClick)
+        imageRIGHT = wx.Image(right, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
+        self.btnright = wx.BitmapButton(self.panel, id = rightID, bitmap=imageRIGHT,
+            pos=(133, 69), size = (imageRIGHT.GetWidth()+5, imageRIGHT.GetHeight()+5))
+        self.btnright.Bind(wx.EVT_BUTTON, self.btnrightClick)
         
-        #imageDOWNRIGHT = wx.Image(downright, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        #self.btndownright = wx.BitmapButton(self.panel, id = 9, bitmap=imageDOWNRIGHT,
-            #pos=(133, 133), size = (imageDOWNRIGHT.GetWidth()+5, imageDOWNRIGHT.GetHeight()+5))
-        #self.btndownright.Bind(wx.EVT_BUTTON, self.btndownrightClick)
+        imageDOWNRIGHT = wx.Image(downright, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
+        self.btndownright = wx.BitmapButton(self.panel, id = 9, bitmap=imageDOWNRIGHT,
+            pos=(133, 133), size = (imageDOWNRIGHT.GetWidth()+5, imageDOWNRIGHT.GetHeight()+5))
+        self.btndownright.Bind(wx.EVT_BUTTON, self.btndownrightClick)
 
         
         self.Centre()
