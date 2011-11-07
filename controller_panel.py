@@ -61,6 +61,10 @@ class arrowsPanel(wx.Panel):
         self.buttons[7].Bind(wx.EVT_LEFT_UP, self.btnDownUp)
         self.buttons[8].Bind(wx.EVT_LEFT_UP, self.btnDownrightUp)
 
+
+        for self.x in self.buttons:
+            self.x.Bind(wx.EVT_KEY_DOWN, self.OnKeyDown)
+
         
 
         
@@ -143,7 +147,16 @@ class arrowsPanel(wx.Panel):
 
 
 
-
+    def OnKeyDown(self, event):
+        keycode = event.GetKeyCode()
+        if keycode == 89 or keycode == 119:
+            btnUpDown()
+        elif keycode == 83 or keycode == 115:
+            btnDownDown()
+        elif keycode == 68 or keycode == 100:
+            btnRightDown()
+        elif keycode == 65 or keycode == 97:
+            btnLeftDown()
 
 
     def update_buttons(self, event):
@@ -170,7 +183,6 @@ class Arrows(wx.Frame):
  
         
     
-        
         self.SetMinSize((230, 253))
         self.SetMaxSize((230, 253))
         self.Centre()
