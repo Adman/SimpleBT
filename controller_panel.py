@@ -29,13 +29,13 @@ class arrowsPanel(wx.Panel):
  
 
 
-        acceltbl = wx.AcceleratorTable( [
-                (wx.ACCEL_NORMAL, ord('w'), upID),
-                (wx.ACCEL_NORMAL, ord('s'), downID),
-                (wx.ACCEL_NORMAL, ord('a'), leftID),
-                (wx.ACCEL_NORMAL, ord('d'), rightID)
-            ])
-        self.SetAcceleratorTable(acceltbl)
+        # acceltbl = wx.AcceleratorTable( [
+        #        (wx.ACCEL_NORMAL, ord('w'), upID),
+        #        (wx.ACCEL_NORMAL, ord('s'), downID),
+        #        (wx.ACCEL_NORMAL, ord('a'), leftID),
+        #        (wx.ACCEL_NORMAL, ord('d'), rightID)
+        #    ])
+        # self.SetAcceleratorTable(acceltbl)
 
 
 
@@ -64,6 +64,9 @@ class arrowsPanel(wx.Panel):
 
         for self.x in self.buttons:
             self.x.Bind(wx.EVT_KEY_DOWN, self.OnKeyDown)
+
+        for self.y in self.buttons:
+            self.y.Bind(wx.EVT_KEY_UP, self.OnKeyUp)
 
         
 
@@ -149,14 +152,27 @@ class arrowsPanel(wx.Panel):
 
     def OnKeyDown(self, event):
         keycode = event.GetKeyCode()
-        if keycode == 89 or keycode == 119:
-            btnUpDown()
-        elif keycode == 83 or keycode == 115:
-            btnDownDown()
-        elif keycode == 68 or keycode == 100:
-            btnRightDown()
-        elif keycode == 65 or keycode == 97:
-            btnLeftDown()
+        if keycode == 87 or keycode == 119:
+            self.btnUpDown(event)
+        if keycode == 83 or keycode == 115:
+            self.btnDownDown(event)
+        if keycode == 68 or keycode == 100:
+            self.btnRightDown(event)
+        if keycode == 65 or keycode == 97:
+            self.btnLeftDown(event)
+        event.Skip()
+
+    def OnKeyUp(self, event):
+        keycode = event.GetKeyCode()
+        if keycode == 87 or keycode == 119:
+            self.btnUpUp(event)
+        if keycode == 83 or keycode == 115:
+            self.btnDownUp(event)
+        if keycode == 68 or keycode == 100:
+            self.btnRightUp(event)
+        if keycode == 65 or keycode == 97:
+            self.btnLeftUp(event)
+        event.Skip()
 
 
     def update_buttons(self, event):
