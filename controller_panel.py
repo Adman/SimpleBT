@@ -1,5 +1,24 @@
-import wx
+import wx, glob, serial, sys
 from obrazky import *
+
+
+
+def scan():
+    """scan for available ports. return a list of tuples (num, name)"""
+    if sys.platform == 'linux2':
+        return list(glob.glob('/dev/ttyUSB*'))
+    else:
+        available = []
+        for i in range(256):
+            try:
+                s = serial.Serial("COM" + str(i))
+                available.append( s.portstr)
+                s.close() # explicit close 'cause of delayed GC in java
+            except serial.SerialException:
+                pass
+        return available
+
+    
  
 class arrowsPanel(wx.Panel):
     def __init__(self, parent, id):
@@ -133,13 +152,15 @@ class arrowsPanel(wx.Panel):
         
     def InitUI(self):
         self.portText = wx.StaticText(self, -1, 'Port:'),
-        self.availablePorts = wx.ComboBox(self, -1, size=(50, -1), choices='salala', 
+        s = scan()
+        print s
+        availablePorts = wx.ComboBox(self, -1, size=(50, -1), choices=s, 
 					style=wx.CB_READONLY),
         self.connectBtn = wx.Button(self, -1, 'Connect')
 
-        self.connecting = [self.portText, self.availablePorts, self.connectBtn]
+        self.connecting = [self.portText, availablePorts, self.connectBtn]
         
-        self.gs = wx.GridSizer(4, 3, 25, 5)
+        self.gs = wx.GridSizer(4, 3, 50, 5)
         self.gs.AddMany(self.buttons)
         self.gs.AddMany(self.connecting)
 
@@ -154,16 +175,21 @@ class Arrows(wx.Frame):
                           style=wx.CLOSE_BOX | wx.CAPTION | wx.SYSTEM_MENU |
                                   wx.RESIZE_BORDER | wx.MAXIMIZE_BOX |
                                           wx.MINIMIZE_BOX)
+
+        self.statusbar = self.CreateStatusBar()
+        self.statusbar.SetStatusText('Disconnected')
+
         Arrows = arrowsPanel(self, -1)
+        
  
         
-        self.SetMinSize((230, 290))
-        self.SetMaxSize((230, 290))
+        self.SetMinSize((230, 300))
+        self.SetMaxSize((230, 300))
         self.Centre()
         self.Show()
         
  
-       
-app = wx.App()
-Arrows(None, -1, 'Arrows')
-app.MainLoop()
+if __name__ == "__main__":
+    app = wx.App()
+    Arrows(None, -1, 'Arrows')
+    app.MainLoop()
