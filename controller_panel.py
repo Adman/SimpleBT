@@ -26,21 +26,21 @@ class arrowsPanel(wx.Panel):
                 wx.BitmapButton(self, id = downleftID, bitmap=self.imageDOWNLEFT),
                 wx.BitmapButton(self, id = downID, bitmap=self.imageDOWN),
                 wx.BitmapButton(self, id = downrightID, bitmap=self.imageDOWNRIGHT)]
- 
 
-
-        # acceltbl = wx.AcceleratorTable( [
-        #        (wx.ACCEL_NORMAL, ord('w'), upID),
-        #        (wx.ACCEL_NORMAL, ord('s'), downID),
-        #        (wx.ACCEL_NORMAL, ord('a'), leftID),
-        #        (wx.ACCEL_NORMAL, ord('d'), rightID)
-        #    ])
-        # self.SetAcceleratorTable(acceltbl)
+        
+        acceltbl = wx.AcceleratorTable( [
+                (wx.ACCEL_NORMAL, ord('w'), upID),
+                (wx.ACCEL_NORMAL, ord('s'), downID),
+                (wx.ACCEL_NORMAL, ord('a'), leftID),
+                (wx.ACCEL_NORMAL, ord('d'), rightID)
+            ])
+        self.SetAcceleratorTable(acceltbl)
 
 
 
         self.InitUI()
-        
+
+        # binding buttons
         self.buttons[0].Bind(wx.EVT_LEFT_DOWN, self.btnUpleftDown)
         self.buttons[1].Bind(wx.EVT_LEFT_DOWN, self.btnUpDown)
         self.buttons[2].Bind(wx.EVT_LEFT_DOWN, self.btnUprightDown)
@@ -51,22 +51,17 @@ class arrowsPanel(wx.Panel):
         self.buttons[7].Bind(wx.EVT_LEFT_DOWN, self.btnDownDown)
         self.buttons[8].Bind(wx.EVT_LEFT_DOWN, self.btnDownrightDown)
 
-        self.buttons[0].Bind(wx.EVT_LEFT_UP, self.btnUpleftUp)
-        self.buttons[1].Bind(wx.EVT_LEFT_UP, self.btnUpUp)
-        self.buttons[2].Bind(wx.EVT_LEFT_UP, self.btnUprightUp)
-        self.buttons[3].Bind(wx.EVT_LEFT_UP, self.btnLeftUp)
-        self.buttons[4].Bind(wx.EVT_LEFT_UP, self.btnCentreUp)
-        self.buttons[5].Bind(wx.EVT_LEFT_UP, self.btnRightUp)
-        self.buttons[6].Bind(wx.EVT_LEFT_UP, self.btnDownleftUp)
-        self.buttons[7].Bind(wx.EVT_LEFT_UP, self.btnDownUp)
-        self.buttons[8].Bind(wx.EVT_LEFT_UP, self.btnDownrightUp)
+        
 
-
+      
         for self.x in self.buttons:
             self.x.Bind(wx.EVT_KEY_DOWN, self.OnKeyDown)
 
         for self.y in self.buttons:
             self.y.Bind(wx.EVT_KEY_UP, self.OnKeyUp)
+
+        for self.z in self.buttons:
+            self.z.Bind(wx.EVT_LEFT_UP, self.released)
 
         
 
@@ -110,42 +105,9 @@ class arrowsPanel(wx.Panel):
 
 
     # released
-    def btnUpleftUp(self, event):
-        print 'button upleft RELEASED'
+    def released(self,event):
+        print 'button released'
         event.Skip()
-
-    def btnUpUp(self, event):
-        print 'button up RELEASED'
-        event.Skip()
-        
-    def btnUprightUp(self, event):
-        print 'button upright RELEASED'
-        event.Skip()
-        
-    def btnLeftUp(self, event):
-        print 'button left RELEASED'
-        event.Skip()
-
-    def btnCentreUp(self, event):
-        print 'button centre RELEASED'
-        event.Skip()
-
-    def btnRightUp(self, event):
-        print 'button right RELEASED'
-        event.Skip()
-
-    def btnDownleftUp(self, event):
-        print 'button downleft RELEASED'
-        event.Skip()
-
-    def btnDownUp(self, event):
-        print 'button down RELEASED'
-        event.Skip()
-
-    def btnDownrightUp(self, event):
-        print 'button downright RELEASED'
-        event.Skip()
-
 
 
 
@@ -183,13 +145,23 @@ class arrowsPanel(wx.Panel):
         
         
     def InitUI(self):
-        self.gs = wx.GridSizer(3, 3, 5, 5)
-        self.gs.AddMany(self.buttons)
-        self.SetSizer(self.gs)
-       
- 
+        self.portText = wx.StaticText(self, -1, 'Port:'),
+        self.availablePorts = wx.ComboBox(self, -1, size=(50, -1), choices='salala', 
+					style=wx.CB_READONLY),
+        self.connectBtn = wx.Button(self, -1, 'Connect')
 
-class Arrows(wx.Frame):
+        self.connecting = [self.portText, self.availablePorts, self.connectBtn]
+        
+        self.gs = wx.GridSizer(4, 3, 25, 5)
+        self.gs.AddMany(self.buttons)
+        self.gs.AddMany(self.connecting)
+
+        
+        self.SetSizer(self.gs)
+
+        
+       
+ class Arrows(wx.Frame):
     def __init__(self, parent, id, title):
         wx.Frame.__init__(self, parent, id, title, size=(220, 430),
                           style=wx.CLOSE_BOX | wx.CAPTION | wx.SYSTEM_MENU |
@@ -198,18 +170,13 @@ class Arrows(wx.Frame):
         Arrows = arrowsPanel(self, -1)
  
         
-    
-        self.SetMinSize((230, 253))
-        self.SetMaxSize((230, 253))
+        self.SetMinSize((230, 290))
+        self.SetMaxSize((230, 290))
         self.Centre()
         self.Show()
         
  
        
- 
-       
-   
- 
 app = wx.App()
 Arrows(None, -1, 'Arrows')
 app.MainLoop()
