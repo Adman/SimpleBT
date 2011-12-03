@@ -24,6 +24,9 @@ class arrowsPanel(wx.Panel):
     def __init__(self, parent, id):
         wx.Panel.__init__(self, parent, id, size=(220, 430), style=wx.SUNKEN_BORDER)
 
+        self.pressedBtns = []
+        
+
     
         self.imageUPLEFT = wx.Image(upleft, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
         self.imageLEFT = wx.Image(left, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
@@ -49,19 +52,19 @@ class arrowsPanel(wx.Panel):
 
         self.InitUI()
         
+        
         # binding buttons
-        self.buttons[0].Bind(wx.EVT_LEFT_DOWN, self.btnUpleftDown)
+        self.buttons[0].Bind(wx.EVT_LEFT_DOWN, self.btnUpLeftDown)
         self.buttons[1].Bind(wx.EVT_LEFT_DOWN, self.btnUpDown)
-        self.buttons[2].Bind(wx.EVT_LEFT_DOWN, self.btnUprightDown)
+        self.buttons[2].Bind(wx.EVT_LEFT_DOWN, self.btnUpRightDown)
         self.buttons[3].Bind(wx.EVT_LEFT_DOWN, self.btnLeftDown)
         self.buttons[4].Bind(wx.EVT_LEFT_DOWN, self.btnCentreDown)
         self.buttons[5].Bind(wx.EVT_LEFT_DOWN, self.btnRightDown)
-        self.buttons[6].Bind(wx.EVT_LEFT_DOWN, self.btnDownleftDown)
+        self.buttons[6].Bind(wx.EVT_LEFT_DOWN, self.btnDownLeftDown)
         self.buttons[7].Bind(wx.EVT_LEFT_DOWN, self.btnDownDown)
-        self.buttons[8].Bind(wx.EVT_LEFT_DOWN, self.btnDownrightDown)
+        self.buttons[8].Bind(wx.EVT_LEFT_DOWN, self.btnDownRightDown)
 
         
-
       
         for self.x in self.buttons:
             self.x.Bind(wx.EVT_KEY_DOWN, self.OnKeyDown)
@@ -72,19 +75,27 @@ class arrowsPanel(wx.Panel):
 
         
 
-    def btnUpleftDown(self, event):
+    def btnUpLeftDown(self, event):
+        for n in self.buttons:
+            n.SetBackgroundColour(None)
         self.buttons[0].SetBackgroundColour('#3a90d1')
         event.Skip()
 
     def btnUpDown(self, event):
+        if "Up" not in self.pressedBtns:
+            self.pressedBtns.append("Up")
         self.buttons[1].SetBackgroundColour('#3a90d1')
         event.Skip()
         
-    def btnUprightDown(self, event):
+    def btnUpRightDown(self, event):
+        for n in self.buttons:
+            n.SetBackgroundColour(None)
         self.buttons[2].SetBackgroundColour('#3a90d1')
         event.Skip()
         
     def btnLeftDown(self, event):
+        if "Left" not in self.pressedBtns:
+            self.pressedBtns.append("Left")
         self.buttons[3].SetBackgroundColour('#3a90d1')
         event.Skip()
 
@@ -93,18 +104,26 @@ class arrowsPanel(wx.Panel):
         event.Skip()
 
     def btnRightDown(self, event):
+        if "Right" not in self.pressedBtns:
+            self.pressedBtns.append("Right")
         self.buttons[5].SetBackgroundColour('#3a90d1')
         event.Skip()
 
-    def btnDownleftDown(self, event):
+    def btnDownLeftDown(self, event):
+        for n in self.buttons:
+            n.SetBackgroundColour(None)
         self.buttons[6].SetBackgroundColour('#3a90d1')
         event.Skip()
 
     def btnDownDown(self, event):
+        if "Down" not in self.pressedBtns:
+            self.pressedBtns.append("Down")
         self.buttons[7].SetBackgroundColour('#3a90d1')
         event.Skip()
 
-    def btnDownrightDown(self, event):
+    def btnDownRightDown(self, event):
+        for n in self.buttons:
+            n.SetBackgroundColour(None)
         self.buttons[8].SetBackgroundColour('#3a90d1')
         event.Skip()
 
@@ -113,6 +132,7 @@ class arrowsPanel(wx.Panel):
     def released(self,event):
         for n in self.buttons:
             n.SetBackgroundColour(None)
+        self.pressedBtns = []
         event.Skip()
 
 
@@ -128,7 +148,23 @@ class arrowsPanel(wx.Panel):
             self.btnRightDown(event)
         if keycode == 65 or keycode == 97:
             self.btnLeftDown(event)
+
+        self.pressedBtns.sort()
+        # print self.pressedBtns
+        a = ''.join(self.pressedBtns)
+        if a == 'LeftUp':
+            self.btnUpLeftDown(event)
+        if a == 'RightUp':
+            self.btnUpRightDown(event)
+        if a == 'DownLeft':
+            self.btnDownLeftDown(event)
+        if a == 'DownRight':
+            self.btnDownRightDown(event)
         event.Skip()
+        
+
+        
+        
 
     def OnKeyUp(self, event):
         keycode = event.GetKeyCode()
@@ -142,14 +178,11 @@ class arrowsPanel(wx.Panel):
             self.released(event)
         event.Skip()
 
+    
+        
 
-    def update_buttons(self, event):
-        # 210, 214
-        # print self.GetSize()
-        pass
         
-        
-        
+    # sizers
     def InitUI(self):
         portText = wx.StaticText(self, -1, 'Port:')
         s = scan()
@@ -166,6 +199,9 @@ class arrowsPanel(wx.Panel):
         hbox.Add(portText, 1)
         hbox.Add(availablePorts, 1)
         hbox.Add(connectBtn, 1)
+
+        self.buttons.append(availablePorts)
+        self.buttons.append(connectBtn)
 
 
         vbox.Add(gs, 0, flag=wx.EXPAND)
@@ -187,7 +223,7 @@ class Arrows(wx.Frame):
 
         Arrows = arrowsPanel(self, -1)
         
- 
+        
         
         self.SetMinSize((230, 300))
         self.SetMaxSize((230, 300))
