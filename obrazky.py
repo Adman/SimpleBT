@@ -10,6 +10,8 @@ upright = "icons/upright.png"
 right = "icons/right.png"
 downright = "icons/downright.png"
 
+logo = "icons/xlclogo.png"
+
 # toggle images
 upleftblue = "icons/upleftblue.png"
 leftblue = "icons/leftblue.png"
@@ -26,8 +28,9 @@ upleftID = 1
 leftID = 2
 downleftID = 3
 upID = 4
-centreID = 5
+logoID = 5
 downID = 6
 uprightID = 7
 rightID = 8
 downrightID = 9
+

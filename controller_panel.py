@@ -29,7 +29,7 @@ class arrowsPanel(wx.Panel):
         self.imageLEFT = wx.Image(left, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
         self.imageDOWNLEFT = wx.Image(downleft, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
         self.imageUP = wx.Image(up, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        self.imageCENTRE = wx.Image(centre, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
+        self.imageLOGO = wx.Image(logo, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
         self.imageDOWN = wx.Image(down, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
         self.imageUPRIGHT = wx.Image(upright, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
         self.imageRIGHT = wx.Image(right, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
@@ -40,7 +40,7 @@ class arrowsPanel(wx.Panel):
                 wx.BitmapButton(self, id = upID, bitmap = self.imageUP),
                 wx.BitmapButton(self, id = uprightID, bitmap=self.imageUPRIGHT),
                 wx.BitmapButton(self, id = leftID, bitmap=self.imageLEFT),
-                wx.BitmapButton(self, id = centreID, bitmap=self.imageCENTRE),
+                wx.BitmapButton(self, id = logoID, bitmap=self.imageLOGO),
                 wx.BitmapButton(self, id = rightID, bitmap=self.imageRIGHT),
                 wx.BitmapButton(self, id = downleftID, bitmap=self.imageDOWNLEFT),
                 wx.BitmapButton(self, id = downID, bitmap=self.imageDOWN),
@@ -151,21 +151,28 @@ class arrowsPanel(wx.Panel):
         
         
     def InitUI(self):
-        self.portText = wx.StaticText(self, -1, 'Port:'),
+        portText = wx.StaticText(self, -1, 'Port:')
         s = scan()
-        print s
-        availablePorts = wx.ComboBox(self, -1, size=(50, -1), choices=s, 
-					style=wx.CB_READONLY),
-        self.connectBtn = wx.Button(self, -1, 'Connect')
+        availablePorts = wx.ComboBox(self, -1, choices=s, 
+					style=wx.CB_READONLY)
+        connectBtn = wx.Button(self, -1, 'Connect', style=wx.EXPAND )
 
-        self.connecting = [self.portText, availablePorts, self.connectBtn]
-        
-        self.gs = wx.GridSizer(4, 3, 50, 5)
-        self.gs.AddMany(self.buttons)
-        self.gs.AddMany(self.connecting)
+        gs = wx.GridSizer(3, 3, 3, 3)
+        hbox = wx.BoxSizer(wx.HORIZONTAL)
+        vbox = wx.BoxSizer(wx.VERTICAL)
 
+        gs.AddMany(self.buttons)
+
+        hbox.Add(portText, 1)
+        hbox.Add(availablePorts, 1)
+        hbox.Add(connectBtn, 1)
+
+
+        vbox.Add(gs, 0, flag=wx.EXPAND)
+        vbox.Add(hbox, 0, flag=wx.EXPAND)
         
-        self.SetSizer(self.gs)
+        self.SetSizer(vbox)
+        
 
         
        
@@ -173,8 +180,7 @@ class Arrows(wx.Frame):
     def __init__(self, parent, id, title):
         wx.Frame.__init__(self, parent, id, title, size=(220, 430),
                           style=wx.CLOSE_BOX | wx.CAPTION | wx.SYSTEM_MENU |
-                                  wx.RESIZE_BORDER | wx.MAXIMIZE_BOX |
-                                          wx.MINIMIZE_BOX)
+                                  wx.RESIZE_BORDER | wx.MINIMIZE_BOX)
 
         self.statusbar = self.CreateStatusBar()
         self.statusbar.SetStatusText('Disconnected')
@@ -191,5 +197,5 @@ class Arrows(wx.Frame):
  
 if __name__ == "__main__":
     app = wx.App()
-    Arrows(None, -1, 'Arrows')
+    Arrows(None, -1, 'SimpleBT')
     app.MainLoop()
