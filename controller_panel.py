@@ -100,6 +100,8 @@ class arrowsPanel(wx.Panel):
         event.Skip()
 
     def btnCentreDown(self, event):
+        for n in self.buttons:
+            n.SetBackgroundColour(None)
         self.buttons[4].SetBackgroundColour('#3a90d1')
         event.Skip()
 
@@ -160,6 +162,10 @@ class arrowsPanel(wx.Panel):
             self.btnDownLeftDown(event)
         if a == 'DownRight':
             self.btnDownRightDown(event)
+        if a == 'DownUp':
+            self.btnCentreDown(event)
+        if a == 'LeftRight':
+            self.btnCentreDown(event)
         event.Skip()
         
 
