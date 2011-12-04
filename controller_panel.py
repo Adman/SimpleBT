@@ -64,6 +64,8 @@ class arrowsPanel(wx.Panel):
         self.buttons[7].Bind(wx.EVT_LEFT_DOWN, self.btnDownDown)
         self.buttons[8].Bind(wx.EVT_LEFT_DOWN, self.btnDownRightDown)
 
+        self.buttons[10].Bind(wx.EVT_BUTTON, self.OnConnect)
+
         
       
         for self.x in self.buttons:
@@ -71,7 +73,10 @@ class arrowsPanel(wx.Panel):
             self.x.Bind(wx.EVT_KEY_UP, self.OnKeyUp)
             self.x.Bind(wx.EVT_LEFT_UP, self.released)
 
-        
+        self.port = port
+
+    def OnConnect(self, event):
+        s = serial.Serial(port, 115200, timeout=1)
 
         
 
