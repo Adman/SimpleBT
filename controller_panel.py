@@ -66,17 +66,16 @@ class arrowsPanel(wx.Panel):
 
         self.buttons[10].Bind(wx.EVT_BUTTON, self.OnConnect)
 
-        
-      
         for self.x in self.buttons:
             self.x.Bind(wx.EVT_KEY_DOWN, self.OnKeyDown)
             self.x.Bind(wx.EVT_KEY_UP, self.OnKeyUp)
             self.x.Bind(wx.EVT_LEFT_UP, self.released)
 
-        self.port = port
+        #self.Bind(wx.EVT_COMBOBOX, self.OnConnect)
+        #self.port = port
 
     def OnConnect(self, event):
-        s = serial.Serial(port, 115200, timeout=1)
+        pass
 
         
 
@@ -197,7 +196,7 @@ class arrowsPanel(wx.Panel):
     def InitUI(self):
         portText = wx.StaticText(self, -1, 'Port:')
         s = scan()
-        availablePorts = wx.ComboBox(self, -1, choices=s, 
+        availablePorts = wx.ComboBox(self, -1, choices='salala', 
 					style=wx.CB_READONLY)
         connectBtn = wx.Button(self, -1, 'Connect', style=wx.EXPAND )
 
