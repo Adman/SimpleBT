@@ -66,6 +66,8 @@ class arrowsPanel(wx.Panel):
         self.buttons[8].Bind(wx.EVT_LEFT_DOWN, self.btnDownRightDown)
 
         self.buttons[10].Bind(wx.EVT_BUTTON, self.OnConnect)
+        self.buttons[11].Bind(wx.EVT_BUTTON, self.OnKick)
+        self.buttons[12].Bind(wx.EVT_TOGGLEBUTTON, self.OnDribbler)
 
         for self.x in self.buttons:
             self.x.Bind(wx.EVT_KEY_DOWN, self.OnKeyDown)
@@ -76,8 +78,20 @@ class arrowsPanel(wx.Panel):
         self.port = None
         self.s = None
 
-        
 
+    def OnDribbler(self, event):
+        value = self.buttons[12].GetValue()
+        if value == 1:
+            if self.s != None:
+                self.s.write('d\r\n')
+        elif value == 0:
+            if self.s != None:
+                self.s.write('D\r\n')
+        
+    def OnKick(self, event):
+        if self.s != None:
+            self.s.write('k\r\n')
+    
     def OnCombo(self, event):
         self.port = self.availablePorts.GetValue()
 
@@ -171,6 +185,10 @@ class arrowsPanel(wx.Panel):
             self.btnRightDown(event)
         if keycode == 65 or keycode == 97:
             self.btnLeftDown(event)
+        if keycode == wx.WXK_SPACE:
+            self.OnKick(event)
+        if keycode == wx.WXK_RETURN:
+            self.OnDribbler(event)
 
         self.pressedBtns.sort()
         # print self.pressedBtns
@@ -213,8 +231,13 @@ class arrowsPanel(wx.Panel):
 					style=wx.CB_READONLY)
         self.connectBtn = wx.Button(self, -1, 'Connect', style=wx.EXPAND )
 
+        self.kicker = wx.Button(self, -1, 'KICK', size=(-1, 40), style=wx.EXPAND)
+
+        self.dribbler = wx.ToggleButton(self, -1, 'DRIBBLER', size=(-1, 40),style=wx.EXPAND)
+
         gs = wx.GridSizer(3, 3, 3, 3)
         hbox = wx.BoxSizer(wx.HORIZONTAL)
+        hbox1 = wx.BoxSizer(wx.HORIZONTAL)
         vbox = wx.BoxSizer(wx.VERTICAL)
 
         gs.AddMany(self.buttons)
@@ -223,11 +246,17 @@ class arrowsPanel(wx.Panel):
         hbox.Add(self.availablePorts, 1)
         hbox.Add(self.connectBtn, 1)
 
+        hbox1.Add(self.kicker, 1)
+        hbox1.Add(self.dribbler, 1)
+
         self.buttons.append(self.availablePorts)
         self.buttons.append(self.connectBtn)
+        self.buttons.append(self.kicker)
+        self.buttons.append(self.dribbler)
 
 
         vbox.Add(gs, 0, flag=wx.EXPAND)
+        vbox.Add(hbox1, 0, flag=wx.EXPAND)
         vbox.Add(hbox, 0, flag=wx.EXPAND)
         
         self.SetSizer(vbox)
@@ -252,8 +281,8 @@ class Arrows(wx.Frame):
         
         
         
-        self.SetMinSize((230, 300))
-        self.SetMaxSize((230, 300))
+        self.SetMinSize((230, 340))
+        self.SetMaxSize((230, 340))
         self.Centre()
         self.Show()
         
