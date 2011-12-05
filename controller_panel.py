@@ -71,13 +71,14 @@ class arrowsPanel(wx.Panel):
             self.x.Bind(wx.EVT_KEY_UP, self.OnKeyUp)
             self.x.Bind(wx.EVT_LEFT_UP, self.released)
 
-        #self.Bind(wx.EVT_COMBOBOX, self.OnConnect)
-        #self.port = port
+        self.Bind(wx.EVT_COMBOBOX, self.OnCombo)
+        self.port = None
+
+    def OnCombo(self, event):
+        self.port = self.availablePorts.GetValue()
 
     def OnConnect(self, event):
         pass
-
-        
 
     def btnUpLeftDown(self, event):
         for n in self.buttons:
@@ -188,17 +189,13 @@ class arrowsPanel(wx.Panel):
             self.released(event)
         event.Skip()
 
-    
-        
-
-        
     # sizers
     def InitUI(self):
-        portText = wx.StaticText(self, -1, 'Port:')
+        self.portText = wx.StaticText(self, -1, 'Port:')
         s = scan()
-        availablePorts = wx.ComboBox(self, -1, choices='salala', 
+        self.availablePorts = wx.ComboBox(self, -1, choices='salala', 
 					style=wx.CB_READONLY)
-        connectBtn = wx.Button(self, -1, 'Connect', style=wx.EXPAND )
+        self.connectBtn = wx.Button(self, -1, 'Connect', style=wx.EXPAND )
 
         gs = wx.GridSizer(3, 3, 3, 3)
         hbox = wx.BoxSizer(wx.HORIZONTAL)
@@ -206,12 +203,12 @@ class arrowsPanel(wx.Panel):
 
         gs.AddMany(self.buttons)
 
-        hbox.Add(portText, 1)
-        hbox.Add(availablePorts, 1)
-        hbox.Add(connectBtn, 1)
+        hbox.Add(self.portText, 1)
+        hbox.Add(self.availablePorts, 1)
+        hbox.Add(self.connectBtn, 1)
 
-        self.buttons.append(availablePorts)
-        self.buttons.append(connectBtn)
+        self.buttons.append(self.availablePorts)
+        self.buttons.append(self.connectBtn)
 
 
         vbox.Add(gs, 0, flag=wx.EXPAND)
