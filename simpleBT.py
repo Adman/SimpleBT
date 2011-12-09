@@ -185,10 +185,16 @@ class arrowsPanel(wx.Panel):
             self.btnRightDown(event)
         if keycode == 65 or keycode == 97:
             self.btnLeftDown(event)
-        if keycode == wx.WXK_SPACE:
+        if keycode == wx.WXK_BACK:
             self.OnKick(event)
         if keycode == wx.WXK_RETURN:
             self.OnDribbler(event)
+        if keycode == 113 or keycode == 81:
+            if self.s != None:
+                self.s.write("l\r\n")
+        if keycode == 101 or keycode == 69:
+            if self.s != None:
+                self.s.write("r\r\n")
 
         self.pressedBtns.sort()
         # print self.pressedBtns
@@ -220,6 +226,10 @@ class arrowsPanel(wx.Panel):
         if keycode == 68 or keycode == 100:
             self.released(event)
         if keycode == 65 or keycode == 97:
+            self.released(event)
+        if keycode == 113 or keycode == 81:
+            self.released(event)
+        if keycode == 101 or keycode == 69:
             self.released(event)
         event.Skip()
 
