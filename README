@@ -1,6 +1,8 @@
 W     -> forward
 S     -> backward
-D     -> right
-A     -> left
+D     -> turn right
+A     -> turn left
+Q			-> left
+E			-> right
 space -> kick
 enter -> dribller on/off
