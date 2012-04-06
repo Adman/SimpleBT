@@ -27,7 +27,7 @@ class arrowsPanel(wx.Panel):
 
         self.pressedBtns = []
         
-
+        self.parent = parent
     
         self.imageUPLEFT = wx.Image(upleft, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
         self.imageLEFT = wx.Image(left, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
