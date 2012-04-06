@@ -97,7 +97,9 @@ class arrowsPanel(wx.Panel):
 
     def OnConnect(self, event):
         self.s = serial.Serial(self.port, 115200, timeout=1)
-
+        status = "Connected"
+        self.parent.statusbar.SetStatusText(status)
+        
     def btnUpLeftDown(self, event):
         for n in self.buttons:
             n.SetBackgroundColour(None)
@@ -248,6 +250,7 @@ class arrowsPanel(wx.Panel):
         gs = wx.GridSizer(3, 3, 3, 3)
         hbox = wx.BoxSizer(wx.HORIZONTAL)
         hbox1 = wx.BoxSizer(wx.HORIZONTAL)
+        hbox2 = wx.BoxSizer(wx.HORIZONTAL)
         vbox = wx.BoxSizer(wx.VERTICAL)
 
         gs.AddMany(self.buttons)
